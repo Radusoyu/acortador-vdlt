@@ -1,12 +1,3 @@
 {
-  "version": 2,
-  "functions": {
-    "shorten.js": {
-      "runtime": "@vercel/node"
-    }
-  },
-  "rewrites": [
-    { "source": "/api/shorten", "destination": "/shorten.js" },
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  "version": 2
 }
