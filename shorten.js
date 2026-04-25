@@ -9,12 +9,9 @@ export default async function handler(req, res) {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `url=${encodeURIComponent(url)}`
         });
-        const data = await response.json();
-        if (data.result_url) {
-            return res.status(200).json({ shortUrl: data.result_url });
-        }
-        return res.status(500).json({ error: 'Error al acortar' });
+        const text = await response.text();
+        return res.status(200).json({ shortUrl: text, debug: text });
     } catch (err) {
-        return res.status(500).json({ error: err.message });
+        return res.status(200).json({ error: err.message, stack: err.stack });
     }
 }
