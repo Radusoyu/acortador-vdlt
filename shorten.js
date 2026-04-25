@@ -1,35 +1,14 @@
-export const config = { runtime: 'edge' };
-
-export default async function handler(req) {
-    const { searchParams } = new URL(req.url);
-    const url = searchParams.get('url');
-
+export default async function handler(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    
+    const url = req.query.url;
+    
     if (!url) {
-        return new Response(JSON.stringify({ error: 'URL requerida' }), {
-            headers: { 
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            }
-        });
+        return res.status(400).json({ error: 'URL requerida' });
     }
 
-    try {
-        const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`);
-        const shortUrl = await response.text();
-
-        return new Response(JSON.stringify({ shortUrl: shortUrl.trim() }), {
-            headers: { 
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            }
-        });
-    } catch (err) {
-        return new Response(JSON.stringify({ error: 'Error de conexión' }), {
-            status: 500,
-            headers: { 
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            }
-        });
-    }
+    const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`);
+    const shortUrl = await response.text();
+    
+    return res.status(200).json({ shortUrl: shortUrl.trim() });
 }
