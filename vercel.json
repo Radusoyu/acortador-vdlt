@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "functions": {
-    "shorten.js": {
-      "runtime": "edge"
-    }
-  },
   "routes": [
     { "src": "/api/shorten", "dest": "/shorten.js" },
     { "src": "/", "dest": "/index.html" }
