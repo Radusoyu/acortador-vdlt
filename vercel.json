@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "api/shorten.js", "use": "@vercel/node" },
-    { "src": "public/**", "use": "@vercel/static" }
-  ],
+  "functions": {
+    "shorten.js": {
+      "runtime": "edge"
+    }
+  },
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/public/$1" }
+    { "src": "/api/shorten", "dest": "/shorten.js" },
+    { "src": "/", "dest": "/index.html" }
   ]
 }
