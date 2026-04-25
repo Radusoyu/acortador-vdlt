@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acortador de Links</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+        .box{background:white;border-radius:14px;padding:35px 30px;max-width:460px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+        h1{text-align:center;color:#333;font-size:24px;margin-bottom:6px}
+        .sub{text-align:center;color:#aaa;font-size:13px;margin-bottom:28px}
+        label{display:block;font-size:12px;font-weight:600;color:#666;margin-bottom:6px}
+        input{width:100%;padding:11px 13px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-bottom:14px}
+        input:focus{outline:none;border-color:#667eea}
+        input[readonly]{background:#f8f8f8;font-family:monospace;font-size:13px}
+        .btn{width:100%;padding:12px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:15px;display:flex;align-items:center;justify-content:center;gap:8px}
+        .btn:hover{opacity:.9}
+        .btn:disabled{opacity:.6;cursor:not-allowed}
+        .spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .row{display:flex;gap:8px;margin-bottom:15px}
+        .row input{flex:1;margin:0}
+        .copy-btn{padding:11px 16px;background:#4caf50;color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;white-space:nowrap}
+        .copy-btn:hover{background:#43a047}
+        .success{background:#e8f5e9;border-left:4px solid #4caf50;padding:14px;border-radius:8px;display:none}
+        .success p{color:#2e7d32;font-size:12px;margin-top:10px;line-height:1.6}
+        .success strong{display:block;color:#1b5e20;font-size:13px;margin-bottom:8px}
+        .error{background:#ffebee;border-left:4px solid #f44336;padding:14px;border-radius:8px;display:none;margin-bottom:15px}
+        .error p{color:#c62828;font-size:12px}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>🔗 Acortador</h1>
+        <p class="sub">Deep links sin límites · Abre apps directamente</p>
+        <label>Pega tu link aquí:</label>
+        <input type="text" id="url" placeholder="https://youtube.com/watch?v=...">
+        <button class="btn" onclick="shorten()" id="btn">Acortar Link</button>
+        <div class="error" id="error"><p id="errorMsg"></p></div>
+        <div class="success" id="success">
+            <strong>✓ Link acortado listo para compartir</strong>
+            <div class="row">
+                <input type="text" id="result" readonly>
+                <button class="copy-btn" onclick="copy()">Copiar</button>
+            </div>
+            <p>Comparte en Instagram, TikTok, WhatsApp...<br>Si tienen la app → <strong>abre directo en la app</strong></p>
+        </div>
+    </div>
+    <script>
+        async function shorten() {
+            const url = document.getElementById('url').value.trim();
+            const btn = document.getElementById('btn');
+            document.getElementById('error').style.display='none';
+            document.getElementById('success').style.display='none';
+            if (!url || !url.startsWith('http')) {
+                document.getElementById('errorMsg').textContent='Escribe un link válido que empiece por https://';
+                document.getElementById('error').style.display='block';
+                return;
+            }
+            btn.disabled=true;
+            btn.innerHTML='<span class="spinner"></span> Acortando...';
+            try {
+                const res = await fetch(`/api/shorten?url=${encodeURIComponent(url)}`);
+                const data = await res.json();
+                if (data.shortUrl) {
+                    document.getElementById('result').value=data.shortUrl;
+                    document.getElementById('success').style.display='block';
+                } else {
+                    throw new Error();
+                }
+            } catch {
+                document.getElementById('errorMsg').textContent='Error al acortar. Intenta de nuevo.';
+                document.getElementById('error').style.display='block';
+            } finally {
+                btn.disabled=false;
+                btn.innerHTML='Acortar Link';
+            }
+        }
+        function copy() {
+            const input = document.getElementById('result');
+            navigator.clipboard.writeText(input.value).then(()=>{
+                const btn=event.target;
+                btn.textContent='✓ Copiado';
+                setTimeout(()=>btn.textContent='Copiar',1500);
+            });
+        }
+        document.getElementById('url').addEventListener('keypress',e=>{if(e.key==='Enter')shorten()});
+    </script>
+</body>
+</html>
