@@ -1,7 +1,12 @@
 {
   "version": 2,
-  "routes": [
-    { "src": "/api/shorten", "dest": "/shorten.js" },
-    { "src": "/", "dest": "/index.html" }
+  "functions": {
+    "shorten.js": {
+      "runtime": "@vercel/node"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/shorten", "destination": "/shorten.js" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
