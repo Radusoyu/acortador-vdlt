@@ -79,9 +79,12 @@
         .face{width:118px;height:150px;border-radius:44% 44% 48% 48%;background:linear-gradient(90deg,#5c3a27,#d3a177 52%,#2b201a);box-shadow:inset 0 -20px 35px rgba(0,0,0,.38);position:relative}.face::before,.face::after{content:"";position:absolute;top:58px;width:16px;height:8px;background:#b7ff00;border-radius:50%;box-shadow:0 0 12px var(--theme)}.face::before{left:31px}.face::after{right:31px}
         .motion{position:absolute;left:18px;right:18px;bottom:24px;height:42px;border-bottom:3px dashed var(--theme);opacity:.85}.orbit{border:4px solid var(--theme);border-left-color:transparent;border-radius:50%;width:170px;height:54px;transform:rotate(-8deg)}.arrow-up{height:150px;border-right:4px dashed var(--theme);position:absolute;right:36px;bottom:30px}.arrow-up::before{content:"↑";position:absolute;top:-25px;right:-12px;color:var(--theme);font-size:26px}.whip{font-size:72px;transform:rotate(-15deg)}
         .copy{padding:18px}.copy h4{font-size:20px;line-height:1.05;text-transform:uppercase;letter-spacing:.055em;color:var(--theme);margin-bottom:10px}.copy .desc{color:#b8c1b8;font-size:14px;line-height:1.35;border-bottom:1px solid color-mix(in srgb,var(--theme),transparent 70%);padding-bottom:12px;margin-bottom:12px}.copy .emotion{font-size:16px;line-height:1.33;color:#fff;font-weight:750}.copy .use{font-size:12px;color:#a3aaa3;margin-top:10px;line-height:1.35}
+
+        .image-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.image-card{border:1px solid rgba(255,255,255,.13);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.02));overflow:hidden}.image-card img{display:block;width:100%;aspect-ratio:8/11;object-fit:cover;background:#050607}.image-card div{padding:16px}.image-card h3{font-size:18px;text-transform:uppercase;margin-bottom:10px}.image-card p{color:#b9c1b9;font-size:13px;line-height:1.45;margin-bottom:14px}.image-card .btn{width:100%;justify-content:center}
+        .generation-note{border:1px solid rgba(22,240,255,.28);border-radius:18px;background:rgba(22,240,255,.06);padding:16px;color:#d7eeee;line-height:1.5;margin-bottom:18px}.generation-note strong{color:var(--cyan)}
         .prompt-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:20px}.formula{border:1px solid rgba(183,255,0,.34);border-radius:22px;padding:22px;background:rgba(183,255,0,.06)}.formula code{display:block;white-space:normal;color:#fff;font-size:22px;line-height:1.35;font-weight:900}.examples{display:grid;gap:12px}.example{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:16px;background:rgba(255,255,255,.055)}.example b{color:var(--lime);display:block;margin-bottom:8px}.example p{color:#d7ddd7;line-height:1.45}.tips{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.tip{border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px;background:#0d1113}.tip strong{color:var(--lime);display:block;margin-bottom:6px}.tip span{color:#bdc5bd;font-size:13px;line-height:1.35;display:block}
         .toast{position:fixed;right:18px;bottom:18px;background:#101510;border:1px solid var(--lime);color:#fff;border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translateY(0)}
-        @media(max-width:1100px){.map{grid-template-columns:repeat(2,1fr)}.glossary,.prompt-grid{grid-template-columns:1fr}.principles{grid-template-columns:repeat(2,1fr)}.recipes{grid-template-columns:1fr 1fr}.recipe{grid-template-columns:38% 62%}}
+        @media(max-width:1100px){.map{grid-template-columns:repeat(2,1fr)}.glossary,.prompt-grid{grid-template-columns:1fr}.image-gallery{grid-template-columns:1fr}.principles{grid-template-columns:repeat(2,1fr)}.recipes{grid-template-columns:1fr 1fr}.recipe{grid-template-columns:38% 62%}}
         @media(max-width:720px){.shell{width:min(100% - 22px,1520px);padding-top:12px}.hero,.section-card,.poster{padding:18px;border-radius:20px}.map,.term-grid,.principles,.recipes,.tips{grid-template-columns:1fr}.recipe{grid-template-columns:1fr;min-height:auto}.visual{min-height:210px}.poster-head,.section-head{display:block}.tag{margin-top:12px}.actions{gap:8px}.btn{width:100%;justify-content:center}}
         @media print{body{background:#050607}.actions,.map,.download-poster,.toast{display:none}.shell{width:100%;padding:0}.hero,.section-card,.poster{break-inside:avoid;box-shadow:none}section{break-before:auto}.recipe{break-inside:avoid}}
     </style>
@@ -96,14 +99,16 @@
                 <button class="btn" onclick="window.print()">⬇ Guardar como PDF</button>
                 <button class="btn" onclick="downloadHTML()">⬇ Descargar HTML</button>
                 <button class="btn alt" onclick="downloadTextGuide()">⬇ Descargar guía TXT</button>
+                <a class="btn" href="#imagenes">⬇ Ver imágenes descargables</a>
                 <a class="btn alt" href="#infografias">Ver las 3 infografías</a>
             </div>
             <nav class="map" aria-label="Secciones del documento">
                 <a href="#glosario">01 · Glosario base</a>
                 <a href="#principios">02 · Principios narrativos</a>
-                <a href="#infografias">03 · 3 infografías</a>
-                <a href="#prompt">04 · Prompt de IA</a>
-                <a href="index.html">05 · Volver al acortador</a>
+                <a href="#imagenes">03 · Imágenes listas</a>
+                <a href="#infografias">04 · 3 infografías</a>
+                <a href="#prompt">05 · Prompt de IA</a>
+                <a href="index.html">06 · Volver al acortador</a>
             </nav>
         </header>
 
@@ -118,6 +123,17 @@
         <section id="principios" class="section-card">
             <div class="section-head"><h2>Principios narrativos</h2><span class="tag" style="color:var(--cyan)">Por qué funcionan</span></div>
             <div class="principles" id="principles"></div>
+        </section>
+
+
+        <section id="imagenes" class="section-card">
+            <div class="section-head"><h2>Imágenes descargables</h2><span class="tag" style="color:var(--cyan)">3 pósters SVG</span></div>
+            <p class="generation-note"><strong>Nota honesta:</strong> estas son imágenes vectoriales descargables creadas dentro del proyecto. En este entorno no hay una herramienta nativa de imagen ni una variable <code>OPENAI_API_KEY</code> configurada para generar salidas reales con GPT-image-2 desde la API.</p>
+            <div class="image-gallery">
+                <article class="image-card"><img src="assets/infografia-intimidad-emocion.svg" alt="Infografía A: Intimidad y emoción"><div><h3>Intimidad y emoción</h3><p>Recetas para acercar al espectador al mundo interno del personaje.</p><a class="btn" href="assets/infografia-intimidad-emocion.svg" download>⬇ Descargar imagen SVG</a></div></article>
+                <article class="image-card"><img src="assets/infografia-poder-escala.svg" alt="Infografía B: Poder y escala"><div><h3>Poder y escala</h3><p>Recetas para hero shots, villanos y momentos épicos.</p><a class="btn" href="assets/infografia-poder-escala.svg" download>⬇ Descargar imagen SVG</a></div></article>
+                <article class="image-card"><img src="assets/infografia-accion-tension.svg" alt="Infografía C: Acción y tensión"><div><h3>Acción y tensión</h3><p>Recetas para persecuciones, crisis y urgencia visual.</p><a class="btn" href="assets/infografia-accion-tension.svg" download>⬇ Descargar imagen SVG</a></div></article>
+            </div>
         </section>
 
         <section id="infografias" class="section-card">
@@ -211,7 +227,7 @@
             const motion = mark === 'orbit' ? '<div class="orbit"></div>' : mark === '↑' ? '<div class="arrow-up"></div>' : ['⚡','〽','↘','✈','◎','⇱','⇲'].includes(mark) ? `<div class="icon whip">${mark}</div>` : `<div class="motion"></div><div class="icon">${mark}</div>`;
             return `<div class="visual"><div class="icon">${main}</div>${motion}</div>`;
         }
-        function posterHTML(p, index){return `<article class="poster ${p.klass}" id="poster-${index}"><div class="poster-head"><div class="poster-title"><small>${p.code}</small><h3>${p.title}</h3><p>${p.subtitle}</p></div><button class="btn download-poster" onclick="downloadPosterText(${index})">⬇ Recetas TXT</button></div><div class="recipes">${p.items.map((r,i)=>`<div class="recipe" data-num="${i+1}">${visual(r[4],r[5])}<div class="copy"><h4>${r[0]}</h4><p class="desc">${r[1]}</p><p class="emotion">${r[2]}</p><p class="use"><b>Usar en:</b> ${r[3]}</p></div></div>`).join('')}</div></article>`}
+        function posterHTML(p, index){const imageFiles=['infografia-intimidad-emocion.svg','infografia-poder-escala.svg','infografia-accion-tension.svg'];return `<article class="poster ${p.klass}" id="poster-${index}"><div class="poster-head"><div class="poster-title"><small>${p.code}</small><h3>${p.title}</h3><p>${p.subtitle}</p></div><div class="actions" style="margin-top:0"><a class="btn download-poster" href="assets/${imageFiles[index]}" download>⬇ Imagen SVG</a><button class="btn download-poster" onclick="downloadPosterText(${index})">⬇ Recetas TXT</button></div></div><div class="recipes">${p.items.map((r,i)=>`<div class="recipe" data-num="${i+1}">${visual(r[4],r[5])}<div class="copy"><h4>${r[0]}</h4><p class="desc">${r[1]}</p><p class="emotion">${r[2]}</p><p class="use"><b>Usar en:</b> ${r[3]}</p></div></div>`).join('')}</div></article>`}
         shotTerms.innerHTML = shots.map(termHTML).join('');
         moveTerms.innerHTML = moves.map(termHTML).join('');
         document.getElementById('principles').innerHTML = principles.map(p=>`<article class="principle"><b>${p[0]}</b><h3>${p[1]}</h3><p>${p[2]}</p></article>`).join('');
