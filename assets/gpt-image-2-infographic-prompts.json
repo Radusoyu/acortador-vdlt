@@ -1,0 +1,23 @@
+[
+  {
+    "filename": "infografia-gpt-intimidad-emocion.png",
+    "model": "gpt-image-2",
+    "size": "1024x1536",
+    "quality": "medium",
+    "prompt": "Create a powerful editorial cinematic poster for a Spanish educational infographic series about generative video camera language. Vertical 2:3 poster, dark premium neon design, high contrast, clean composition, readable visual hierarchy, futuristic film school aesthetic. Use abstract cinematic panels, camera-frame graphics, motion arrows, lens flare, subtle grid, dramatic lighting. Big title text exactly: INTIMIDAD Y EMOCIÓN. Color palette: lime green and cyan. Main visual ideas: close-up face, soft dolly-in arrows, symbolic ring/object macro detail, intimate emotional mood. Include the concept PLANO + MOVIMIENTO = LENGUAJE NARRATIVO as a visual equation. Avoid small body text, avoid paragraphs, avoid watermarks, avoid fake logos."
+  },
+  {
+    "filename": "infografia-gpt-poder-escala.png",
+    "model": "gpt-image-2",
+    "size": "1024x1536",
+    "quality": "medium",
+    "prompt": "Create a powerful editorial cinematic poster for a Spanish educational infographic series about generative video camera language. Vertical 2:3 poster, dark premium neon design, high contrast, clean composition, readable visual hierarchy, futuristic film school aesthetic. Use abstract cinematic panels, camera-frame graphics, motion arrows, lens flare, subtle grid, dramatic lighting. Big title text exactly: PODER Y ESCALA. Color palette: purple and cyan. Main visual ideas: low angle heroic figure, extreme wide landscape, aerial geometry, monumental scale and power. Include the concept PLANO + MOVIMIENTO = LENGUAJE NARRATIVO as a visual equation. Avoid small body text, avoid paragraphs, avoid watermarks, avoid fake logos."
+  },
+  {
+    "filename": "infografia-gpt-accion-tension.png",
+    "model": "gpt-image-2",
+    "size": "1024x1536",
+    "quality": "medium",
+    "prompt": "Create a powerful editorial cinematic poster for a Spanish educational infographic series about generative video camera language. Vertical 2:3 poster, dark premium neon design, high contrast, clean composition, readable visual hierarchy, futuristic film school aesthetic. Use abstract cinematic panels, camera-frame graphics, motion arrows, lens flare, subtle grid, dramatic lighting. Big title text exactly: ACCIÓN Y TENSIÓN. Color palette: red and orange. Main visual ideas: POV running corridor, dutch angle, crash zoom lightning marks, handheld kinetic motion and urgency. Include the concept PLANO + MOVIMIENTO = LENGUAJE NARRATIVO as a visual equation. Avoid small body text, avoid paragraphs, avoid watermarks, avoid fake logos."
+  }
+]

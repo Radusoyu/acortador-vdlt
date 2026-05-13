@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano + Movimiento = Lenguaje Narrativo</title>
+    <style>
+        :root{
+            --bg:#050607;
+            --panel:#0b1110;
+            --panel-2:#11171c;
+            --lime:#b7ff00;
+            --cyan:#16f0ff;
+            --purple:#8d5cff;
+            --orange:#ff7a18;
+            --red:#ff385c;
+            --text:#f3f5f0;
+            --muted:#9aa39a;
+            --line:rgba(183,255,0,.32);
+            --shadow:0 22px 70px rgba(0,0,0,.42);
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        body{
+            background:
+                radial-gradient(circle at 15% -10%,rgba(183,255,0,.18),transparent 30%),
+                radial-gradient(circle at 88% 5%,rgba(141,92,255,.20),transparent 24%),
+                linear-gradient(135deg,#030404,#101315 48%,#050607);
+            color:var(--text);
+            font-family:Inter,Arial,Helvetica,sans-serif;
+            min-height:100vh;
+        }
+        body::before{
+            content:"";
+            position:fixed;inset:0;pointer-events:none;opacity:.13;z-index:-1;
+            background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+            background-size:42px 42px;
+            mask-image:linear-gradient(to bottom,#000,transparent 80%);
+        }
+        .shell{width:min(1520px,94vw);margin:auto;padding:34px 0 70px}
+        .hero{
+            border:1px solid rgba(255,255,255,.13);
+            background:linear-gradient(135deg,rgba(10,13,14,.92),rgba(13,16,22,.82));
+            border-radius:28px;padding:36px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+        }
+        .hero::after{content:"";position:absolute;right:-110px;top:-110px;width:360px;height:360px;border:1px solid rgba(183,255,0,.24);border-radius:50%;box-shadow:0 0 0 50px rgba(141,92,255,.04)}
+        .kicker{font-size:13px;letter-spacing:.28em;color:var(--muted);font-weight:900;text-transform:uppercase;margin-bottom:18px}
+        h1{font-size:clamp(42px,7vw,104px);line-height:.88;letter-spacing:-.065em;text-transform:uppercase;max-width:1240px}
+        .accent{color:var(--lime);text-shadow:0 0 24px rgba(183,255,0,.28)}
+        .lead{max-width:980px;color:#c4cbc4;font-size:clamp(18px,2vw,26px);line-height:1.42;margin:24px 0 28px}
+        .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+        .btn{border:1px solid rgba(183,255,0,.42);background:rgba(183,255,0,.09);color:var(--text);border-radius:999px;padding:13px 18px;font-weight:900;text-decoration:none;cursor:pointer;display:inline-flex;gap:10px;align-items:center;transition:.18s ease;font-size:14px}
+        .btn:hover{transform:translateY(-2px);background:rgba(183,255,0,.18)}
+        .btn.alt{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.06)}
+        .map{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:30px}
+        .map a{color:var(--muted);text-decoration:none;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:14px;background:rgba(255,255,255,.04);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+        section{margin-top:28px}
+        .section-card{border:1px solid rgba(255,255,255,.12);background:rgba(7,10,10,.82);border-radius:26px;padding:26px;box-shadow:var(--shadow)}
+        .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:18px}
+        h2{font-size:clamp(28px,4vw,58px);letter-spacing:-.045em;text-transform:uppercase;line-height:.94}
+        .tag{display:inline-flex;align-items:center;gap:8px;border:1px solid currentColor;border-radius:999px;padding:8px 12px;font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+        .glossary{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+        .term-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+        .term{border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:13px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.02))}
+        .term strong{display:block;font-size:14px;color:#fff;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+        .term small{color:var(--lime);font-weight:900}.term p{font-size:13px;color:#b8c0b7;line-height:1.35;margin-top:6px}
+        .principles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+        .principle{border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:18px;background:rgba(255,255,255,.05);min-height:185px;position:relative;overflow:hidden}
+        .principle b{font-size:38px;color:var(--lime);line-height:1}.principle h3{margin:12px 0 9px;text-transform:uppercase;font-size:16px}.principle p{color:#c1c8c1;line-height:1.45;font-size:14px}
+        .poster{border-radius:28px;padding:24px;margin-top:22px;border:1px solid rgba(255,255,255,.13);background:linear-gradient(135deg,#070909,#111318);box-shadow:var(--shadow)}
+        .poster.lime{--theme:var(--lime)}.poster.power{--theme:var(--purple)}.poster.action{--theme:var(--orange)}
+        .poster-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:18px}.poster-title small{color:var(--theme);font-weight:1000;letter-spacing:.22em;text-transform:uppercase}.poster-title h3{font-size:clamp(30px,4vw,62px);letter-spacing:-.055em;text-transform:uppercase}.poster-title p{color:#c7cec7;font-size:17px;margin-top:8px}.download-poster{color:var(--theme);border-color:color-mix(in srgb,var(--theme),transparent 45%)}
+        .recipes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.recipe{min-height:258px;border:1px solid color-mix(in srgb,var(--theme),transparent 65%);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.018));overflow:hidden;display:grid;grid-template-columns:42% 58%;position:relative}.recipe::before{content:attr(data-num);position:absolute;left:12px;top:12px;width:34px;height:34px;border:1px solid var(--theme);border-radius:8px;color:var(--theme);font-weight:1000;display:grid;place-items:center;background:rgba(0,0,0,.55);z-index:2}.visual{min-height:100%;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 38%,color-mix(in srgb,var(--theme),transparent 75%),transparent 22%),linear-gradient(150deg,#151a1d,#050607)}
+        .visual::after{content:"";position:absolute;inset:14px;border:2px solid color-mix(in srgb,var(--theme),transparent 25%);opacity:.8;clip-path:polygon(0 0,22% 0,22% 4%,4% 4%,4% 22%,0 22%,0 0,100% 0,78% 0,78% 4%,96% 4%,96% 22%,100% 22%,100% 100%,78% 100%,78% 96%,96% 96%,96% 78%,100% 78%,100% 100%,0 100%,22% 100%,22% 96%,4% 96%,4% 78%,0 78%)}
+        .icon{position:absolute;inset:0;display:grid;place-items:center;color:var(--theme);font-weight:1000;font-size:54px;text-shadow:0 0 20px color-mix(in srgb,var(--theme),transparent 55%)}
+        .figure{width:62px;height:130px;border-radius:999px 999px 20px 20px;background:linear-gradient(#f5efe7,#474b52);box-shadow:0 0 58px color-mix(in srgb,var(--theme),transparent 70%)}
+        .landscape{position:absolute;inset:0;background:linear-gradient(#303b4a 0 38%,#161d20 39% 100%)}.landscape::before{content:"";position:absolute;left:-5%;right:-5%;bottom:34%;height:42%;background:linear-gradient(135deg,transparent 45%,#6c7480 46% 54%,transparent 55%),linear-gradient(225deg,transparent 45%,#323b45 46% 54%,transparent 55%)}.landscape::after{content:"";position:absolute;left:50%;bottom:22%;width:18px;height:38px;border-radius:20px;background:var(--theme);transform:translateX(-50%)}
+        .detail-object{width:120px;height:120px;border-radius:50%;border:8px double #b0874d;background:radial-gradient(circle,#ffe0a1,#5b371b 55%,#16100c);box-shadow:0 0 35px rgba(255,168,56,.38)}
+        .face{width:118px;height:150px;border-radius:44% 44% 48% 48%;background:linear-gradient(90deg,#5c3a27,#d3a177 52%,#2b201a);box-shadow:inset 0 -20px 35px rgba(0,0,0,.38);position:relative}.face::before,.face::after{content:"";position:absolute;top:58px;width:16px;height:8px;background:#b7ff00;border-radius:50%;box-shadow:0 0 12px var(--theme)}.face::before{left:31px}.face::after{right:31px}
+        .motion{position:absolute;left:18px;right:18px;bottom:24px;height:42px;border-bottom:3px dashed var(--theme);opacity:.85}.orbit{border:4px solid var(--theme);border-left-color:transparent;border-radius:50%;width:170px;height:54px;transform:rotate(-8deg)}.arrow-up{height:150px;border-right:4px dashed var(--theme);position:absolute;right:36px;bottom:30px}.arrow-up::before{content:"↑";position:absolute;top:-25px;right:-12px;color:var(--theme);font-size:26px}.whip{font-size:72px;transform:rotate(-15deg)}
+        .copy{padding:18px}.copy h4{font-size:20px;line-height:1.05;text-transform:uppercase;letter-spacing:.055em;color:var(--theme);margin-bottom:10px}.copy .desc{color:#b8c1b8;font-size:14px;line-height:1.35;border-bottom:1px solid color-mix(in srgb,var(--theme),transparent 70%);padding-bottom:12px;margin-bottom:12px}.copy .emotion{font-size:16px;line-height:1.33;color:#fff;font-weight:750}.copy .use{font-size:12px;color:#a3aaa3;margin-top:10px;line-height:1.35}
+
+        .image-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.image-card{border:1px solid rgba(255,255,255,.13);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.02));overflow:hidden}.image-card img{display:block;width:100%;aspect-ratio:8/11;object-fit:cover;background:#050607}.image-card div{padding:16px}.image-card h3{font-size:18px;text-transform:uppercase;margin-bottom:10px}.image-card p{color:#b9c1b9;font-size:13px;line-height:1.45;margin-bottom:14px}.image-card .btn{width:100%;justify-content:center}
+        .generation-note{border:1px solid rgba(22,240,255,.28);border-radius:18px;background:rgba(22,240,255,.06);padding:16px;color:#d7eeee;line-height:1.5;margin-bottom:18px}.generation-note strong{color:var(--cyan)}
+        .prompt-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:20px}.formula{border:1px solid rgba(183,255,0,.34);border-radius:22px;padding:22px;background:rgba(183,255,0,.06)}.formula code{display:block;white-space:normal;color:#fff;font-size:22px;line-height:1.35;font-weight:900}.examples{display:grid;gap:12px}.example{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:16px;background:rgba(255,255,255,.055)}.example b{color:var(--lime);display:block;margin-bottom:8px}.example p{color:#d7ddd7;line-height:1.45}.tips{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.tip{border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px;background:#0d1113}.tip strong{color:var(--lime);display:block;margin-bottom:6px}.tip span{color:#bdc5bd;font-size:13px;line-height:1.35;display:block}
+        .toast{position:fixed;right:18px;bottom:18px;background:#101510;border:1px solid var(--lime);color:#fff;border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translateY(0)}
+        @media(max-width:1100px){.map{grid-template-columns:repeat(2,1fr)}.glossary,.prompt-grid{grid-template-columns:1fr}.image-gallery{grid-template-columns:1fr}.principles{grid-template-columns:repeat(2,1fr)}.recipes{grid-template-columns:1fr 1fr}.recipe{grid-template-columns:38% 62%}}
+        @media(max-width:720px){.shell{width:min(100% - 22px,1520px);padding-top:12px}.hero,.section-card,.poster{padding:18px;border-radius:20px}.map,.term-grid,.principles,.recipes,.tips{grid-template-columns:1fr}.recipe{grid-template-columns:1fr;min-height:auto}.visual{min-height:210px}.poster-head,.section-head{display:block}.tag{margin-top:12px}.actions{gap:8px}.btn{width:100%;justify-content:center}}
+        @media print{body{background:#050607}.actions,.map,.download-poster,.toast{display:none}.shell{width:100%;padding:0}.hero,.section-card,.poster{break-inside:avoid;box-shadow:none}section{break-before:auto}.recipe{break-inside:avoid}}
+    </style>
+</head>
+<body>
+    <main class="shell" id="documento">
+        <header class="hero">
+            <div class="kicker">B3 · 07 · Documento visual descargable</div>
+            <h1>Plano + movimiento = <span class="accent">lenguaje narrativo</span></h1>
+            <p class="lead">Sistema completo de recetas visuales para vídeo generativo con IA: combinas el tipo de plano —qué ves— con el movimiento de cámara —cómo se mueve— y obtienes una emoción concreta.</p>
+            <div class="actions">
+                <button class="btn" onclick="window.print()">⬇ Guardar como PDF</button>
+                <button class="btn" onclick="downloadHTML()">⬇ Descargar HTML</button>
+                <button class="btn alt" onclick="downloadTextGuide()">⬇ Descargar guía TXT</button>
+                <a class="btn" href="#imagenes">⬇ Ver imágenes descargables</a>
+                <a class="btn alt" href="#infografias">Ver las 3 infografías</a>
+            </div>
+            <nav class="map" aria-label="Secciones del documento">
+                <a href="#glosario">01 · Glosario base</a>
+                <a href="#principios">02 · Principios narrativos</a>
+                <a href="#imagenes">03 · Imágenes listas</a>
+                <a href="#infografias">04 · 3 infografías</a>
+                <a href="#prompt">05 · Prompt de IA</a>
+                <a href="index.html">06 · Volver al acortador</a>
+            </nav>
+        </header>
+
+        <section id="glosario" class="section-card">
+            <div class="section-head"><h2>Glosario base</h2><span class="tag" style="color:var(--lime)">Qué ves + cómo se mueve</span></div>
+            <div class="glossary">
+                <article><h3 class="tag" style="color:var(--lime);margin-bottom:14px">Tipos de plano</h3><div class="term-grid" id="shotTerms"></div></article>
+                <article><h3 class="tag" style="color:var(--cyan);margin-bottom:14px">Tipos de movimiento</h3><div class="term-grid" id="moveTerms"></div></article>
+            </div>
+        </section>
+
+        <section id="principios" class="section-card">
+            <div class="section-head"><h2>Principios narrativos</h2><span class="tag" style="color:var(--cyan)">Por qué funcionan</span></div>
+            <div class="principles" id="principles"></div>
+        </section>
+
+
+        <section id="imagenes" class="section-card">
+            <div class="section-head"><h2>Imágenes descargables</h2><span class="tag" style="color:var(--cyan)">3 pósters SVG</span></div>
+            <p class="generation-note"><strong>Nota honesta:</strong> intenté generar PNG con GPT-image-2, pero la conexión saliente a la API quedó bloqueada por el túnel de red del entorno con <code>403 Forbidden</code>. No guardo claves en el repositorio; por eso quedan disponibles las imágenes SVG exactas y los prompts listos para generar los PNG fuera de este entorno.</p>
+            <div class="image-gallery">
+                <article class="image-card"><img src="assets/infografia-intimidad-emocion.svg" alt="Infografía A: Intimidad y emoción"><div><h3>Intimidad y emoción</h3><p>Recetas para acercar al espectador al mundo interno del personaje.</p><a class="btn" href="assets/infografia-intimidad-emocion.svg" download>⬇ Descargar imagen SVG</a></div></article>
+                <article class="image-card"><img src="assets/infografia-poder-escala.svg" alt="Infografía B: Poder y escala"><div><h3>Poder y escala</h3><p>Recetas para hero shots, villanos y momentos épicos.</p><a class="btn" href="assets/infografia-poder-escala.svg" download>⬇ Descargar imagen SVG</a></div></article>
+                <article class="image-card"><img src="assets/infografia-accion-tension.svg" alt="Infografía C: Acción y tensión"><div><h3>Acción y tensión</h3><p>Recetas para persecuciones, crisis y urgencia visual.</p><a class="btn" href="assets/infografia-accion-tension.svg" download>⬇ Descargar imagen SVG</a></div></article>
+            </div>
+            <div class="actions"><a class="btn alt" href="assets/gpt-image-2-infographic-prompts.json" download>⬇ Descargar prompts GPT-image-2</a></div>
+        </section>
+
+        <section id="infografias" class="section-card">
+            <div class="section-head"><h2>Tabla maestra en 3 infografías</h2><span class="tag" style="color:var(--purple)">9 recetas cada una</span></div>
+            <div id="posters"></div>
+        </section>
+
+        <section id="prompt" class="section-card">
+            <div class="section-head"><h2>Cómo usarlo en prompts de IA</h2><span class="tag" style="color:var(--orange)">Sora · Veo · Kling · Runway</span></div>
+            <div class="prompt-grid">
+                <div class="formula"><span class="tag" style="color:var(--lime);margin-bottom:16px">Fórmula</span><code>[Sujeto + descripción] · [Tipo de plano] · [Movimiento de cámara] · [Atmósfera/iluminación] · [Estilo]</code></div>
+                <div class="examples" id="examples"></div>
+            </div>
+            <div class="tips" id="tips"></div>
+        </section>
+    </main>
+    <div class="toast" id="toast">Descarga preparada</div>
+
+    <script>
+        const shots = [
+            ['Plano detalle','Extreme close-up','Zoom extremo a un objeto, textura o parte del cuerpo. Aísla lo importante.'],
+            ['Primer plano','Close-up','Rostro, de los hombros para arriba. Lectura emocional pura.'],
+            ['Plano medio','Medium shot','De pecho hacia arriba. Lectura corporal y gesto.'],
+            ['Plano americano','American shot','De la rodilla hacia arriba. Acción y postura.'],
+            ['Plano general','Full shot','Cuerpo completo en su entorno. Contexto y relación.'],
+            ['Gran plano general','Extreme wide shot','Paisaje amplio con sujeto pequeño. Escala y atmósfera.'],
+            ['Contrapicado','Low angle','Cámara desde abajo apuntando arriba. Poder, dominio, monumentalidad.'],
+            ['Picado','High angle','Cámara desde arriba apuntando abajo. Vulnerabilidad, fragilidad, control.'],
+            ['Plano cenital','Bird\'s eye view','Cámara totalmente arriba mirando al suelo. Observación, geometría, dios omnisciente.'],
+            ['Plano holandés','Dutch angle','Cámara inclinada en diagonal. Tensión, locura, inestabilidad.'],
+            ['Punto de vista','POV shot','Cámara desde los ojos del personaje. Inmersión total.'],
+            ['Sobre el hombro','Over-the-shoulder','Cámara detrás del hombro de alguien. Complicidad y diálogo.']
+        ];
+        const moves = [
+            ['Estático','Static shot','Cámara fija. Peso visual, calma o tensión contenida.'],['Dolly in','Dolly in','La cámara avanza físicamente hacia el sujeto. Acerca emoción.'],['Dolly out','Dolly out','La cámara retrocede físicamente. Revela contexto o aísla.'],['Zoom in','Zoom in','La lente acerca sin mover cámara. Aislamiento psicológico.'],['Zoom out','Zoom out','La lente abre. Contexto que aparece de golpe.'],['Crash zoom','Crash zoom','Zoom brusco y muy rápido. Impacto y sorpresa.'],['Tilt up','Tilt up','Cámara sube apuntando hacia arriba. Revelación y poder.'],['Tilt down','Tilt down','Cámara baja apuntando hacia abajo. Caída o descubrimiento íntimo.'],['Paneo','Pan','La cámara gira sobre su eje horizontal. Recorre y conecta espacios.'],['Orbital','Orbit shot','La cámara gira alrededor del sujeto. Tridimensionalidad.'],['Hyper orbital','Hyper orbit','Orbital rápido y dinámico. Energía épica.'],['Seguimiento','Tracking shot','La cámara acompaña al sujeto. Inmersión en acción.'],['Cámara en mano','Handheld','Cercanía documental y realismo.'],['Push in','Push in','Variante suave de dolly in. Intimidad creciente.'],['Pull out','Pull out','Variante suave de dolly out. Revelación pausada.'],['Aéreo','Aerial shot','Vista desde el aire. Escala épica.'],['Paneo rápido','Whip pan','Pan brutalmente rápido. Transición o caos.']
+        ];
+        const principles = [
+            ['01','Distancia emocional','Más cerca = más emoción. Más lejos = más contexto y soledad. Dolly in cierra; dolly out abre.'],
+            ['02','Ángulo = jerarquía','Contrapicado eleva. Picado aplasta. El ángulo dice quién manda sin diálogo.'],
+            ['03','Velocidad = intensidad','Lento crea contemplación y peso. Rápido crea urgencia, caos y energía.'],
+            ['04','Dirección emocional','Hacia el sujeto = entramos en su cabeza. Alejarse = lo soltamos o lo perdemos.'],
+            ['05','Estabilidad = control','Cámara fija o suave = control mental. Temblor, dutch angle o whip pan = crisis.']
+        ];
+        const posters = [
+            {klass:'lime', code:'INFOGRAFÍA A', title:'Intimidad y emoción', subtitle:'9 recetas para que el espectador sienta lo que siente tu personaje.', items:[
+                ['Primer plano + Dolly in','Rostro · la cámara avanza despacio hacia él.','Intimidad creciente. La distancia emocional se reduce.','Confesión, decisión interna, declaración de amor.','face','↔'],
+                ['Primer plano + Push in lento','Rostro · avance suave, casi imperceptible.','Tensión psicológica. El personaje se rompe por dentro.','Momento antes de quebrarse, revelación silenciosa.','face','→'],
+                ['Primer plano + Estático','Rostro fijo · sin movimiento.','Lectura emocional pura. El espectador escudriña.','Diálogo cara a cara, juicio moral, monólogo.','face','▣'],
+                ['Primer plano + Zoom out','Empieza en el rostro · la lente abre el entorno.','Soledad súbita. El entorno absorbe al personaje.','Final triste, abandono, despedida.','landscape','⇱'],
+                ['Primer plano + Orbital lento','Rostro · giro lento alrededor del personaje.','Examen íntimo, tridimensionalidad emocional.','Retrato, presentación profunda de protagonista.','face','orbit'],
+                ['Plano medio + Dolly in','De pecho hacia arriba · avance progresivo.','Conexión progresiva con el personaje.','Conversación que se vuelve íntima.','figure','→'],
+                ['Plano detalle + Estático','Objeto o textura · cámara fija.','El objeto tiene todo el peso simbólico.','Pista, símbolo, detalle clave: anillo, carta, herida.','object','▣'],
+                ['Plano detalle + Push in','Objeto clave · avance suave.','El objeto cobra vida y misterio.','Suspense: algo va a pasar con ese objeto.','object','→'],
+                ['Plano detalle + Tilt up','Detalle · subida hasta revelar el contexto.','Descubrimiento progresivo del objeto a su contexto.','Revelar lo que sostiene un personaje.','object','↑']
+            ]},
+            {klass:'power', code:'INFOGRAFÍA B', title:'Poder y escala', subtitle:'9 recetas para hero shots, villanos y momentos épicos.', items:[
+                ['Contrapicado + Tilt up','Desde abajo · cámara sube apuntando arriba.','Poder y monumentalidad creciente.','Presentación de héroe, villano, ídolo o jefe.','figure','↑'],
+                ['Contrapicado + Hyper orbital','Desde abajo · giro rápido alrededor del sujeto.','Presentación épica. Máxima energía y poder.','Entrada triunfal, drop de música, hero shot.','figure','orbit'],
+                ['Contrapicado + Estático','Desde abajo · cámara inmóvil.','Dominio absoluto, intimidación contenida.','Antagonista observando, juicio, autoridad.','figure','▣'],
+                ['Contrapicado + Dolly in','Desde abajo · amenaza que avanza.','Amenaza que se acerca, intimidación creciente.','Villano avanzando, presencia que crece.','figure','→'],
+                ['Gran plano general + Dolly out','Paisaje amplio · la cámara se aleja.','Soledad que se expande. El personaje se hace pequeño.','Soledad existencial, después de la batalla, despedida.','landscape','⇲'],
+                ['Gran plano general + Crash zoom','Vista amplia · zoom brusco y muy rápido.','Impacto visual desde la distancia. Apertura épica.','Apertura de secuencia, llegada a un lugar.','landscape','⚡'],
+                ['Gran plano general + Aéreo','Vista desde el aire · geografía dominante.','Escala épica, geografía monumental.','Apertura de pieza, viaje, paisaje protagonista.','landscape','✈'],
+                ['Picado + Dolly out','Desde arriba · retroceso progresivo.','Soledad absoluta, abandono cósmico.','Final de capítulo, pérdida total, depresión.','landscape','⇲'],
+                ['Plano cenital + Pull out','Totalmente arriba · revela patrón o escala.','Revelación de patrón o escala.','Final de secuencia, contexto inesperado.','landscape','◎']
+            ]},
+            {klass:'action', code:'INFOGRAFÍA C', title:'Acción y tensión', subtitle:'9 recetas para acción, persecuciones y momentos de crisis.', items:[
+                ['Plano americano + Seguimiento','De rodilla hacia arriba · cámara camina con él.','Acompaña al personaje en acción.','Caminata determinada, llegada, salida.','figure','→'],
+                ['Plano americano + Steadicam frontal','Frontal estabilizado · urgencia controlada.','Realismo, urgencia controlada.','Persecución, búsqueda, decisión en marcha.','figure','⇢'],
+                ['Plano medio + Seguimiento lateral','Personaje caminando hablando.','Walk and talk, diálogo en movimiento.','Dinamismo conversacional.','figure','↔'],
+                ['POV + Seguimiento','Somos los ojos del personaje.','Inmersión total: somos el personaje.','Llegar a un lugar por primera vez, descubrir.','landscape','→'],
+                ['POV + Cámara en mano','Subjetivo · vibración natural.','Realismo brutal, urgencia subjetiva.','Acción, miedo, persecución.','landscape','〽'],
+                ['Plano holandés + Dolly in','Cámara inclinada · avance hacia la crisis.','Locura creciente, paranoia.','Pérdida de control mental, revelación oscura.','face','↘'],
+                ['Primer plano + Crash zoom','Rostro · zoom abrupto.','Shock psicológico. Algo acaba de pasar.','Revelación traumática, descubrimiento brutal.','face','⚡'],
+                ['Plano detalle + Crash zoom','Objeto · zoom brutal hacia la pista.','El objeto explota en importancia.','Revelar la pista clave de golpe.','object','⚡'],
+                ['Sobre el hombro + Push in','Detrás del hombro · avance íntimo.','Complicidad creciente, espionaje.','Vigilancia, conversación tensa, juicio.','figure','→']
+            ]}
+        ];
+        const examples = [
+            ['Close-up + Dolly in','Rostro de un hombre maduro mirando fijo a cámara, close-up, dolly in lento y constante, iluminación cinemática lateral cálida, estética película de los 70.'],
+            ['Low angle + Hyper orbit','Figura con abrigo largo de pie sobre un acantilado, low angle extremo, cámara en hyper orbit rápido alrededor del sujeto, cielo tormentoso al atardecer, estética épica blockbuster.'],
+            ['Extreme wide + Dolly out','Figura solitaria de pie en mitad de un lago helado, extreme wide shot, dolly out lento que revela la inmensidad del paisaje, luz azul fría del amanecer, estética cinemática minimalista.'],
+            ['POV + Handheld','Punto de vista subjetivo corriendo por un pasillo en penumbra, POV handheld con vibración natural, iluminación parpadeante, estética found footage realista.']
+        ];
+        const tips = [
+            ['Dolly in','Si no lo entiende: camera slowly advancing toward the subject.'],['Contrapicado','Prueba: low angle shot, camera pointing upward.'],['Orbital','Prueba: camera rotating 360 around the subject.'],['Crash zoom','Prueba: fast abrupt zoom toward the subject.']
+        ];
+        function termHTML(t){return `<div class="term"><strong>${t[0]}</strong><small>${t[1]}</small><p>${t[2]}</p></div>`}
+        function visual(kind, mark){
+            const main = kind === 'face' ? '<div class="face"></div>' : kind === 'object' ? '<div class="detail-object"></div>' : kind === 'landscape' ? '<div class="landscape"></div>' : '<div class="figure"></div>';
+            const motion = mark === 'orbit' ? '<div class="orbit"></div>' : mark === '↑' ? '<div class="arrow-up"></div>' : ['⚡','〽','↘','✈','◎','⇱','⇲'].includes(mark) ? `<div class="icon whip">${mark}</div>` : `<div class="motion"></div><div class="icon">${mark}</div>`;
+            return `<div class="visual"><div class="icon">${main}</div>${motion}</div>`;
+        }
+        function posterHTML(p, index){const imageFiles=['infografia-intimidad-emocion.svg','infografia-poder-escala.svg','infografia-accion-tension.svg'];return `<article class="poster ${p.klass}" id="poster-${index}"><div class="poster-head"><div class="poster-title"><small>${p.code}</small><h3>${p.title}</h3><p>${p.subtitle}</p></div><div class="actions" style="margin-top:0"><a class="btn download-poster" href="assets/${imageFiles[index]}" download>⬇ Imagen SVG</a><button class="btn download-poster" onclick="downloadPosterText(${index})">⬇ Recetas TXT</button></div></div><div class="recipes">${p.items.map((r,i)=>`<div class="recipe" data-num="${i+1}">${visual(r[4],r[5])}<div class="copy"><h4>${r[0]}</h4><p class="desc">${r[1]}</p><p class="emotion">${r[2]}</p><p class="use"><b>Usar en:</b> ${r[3]}</p></div></div>`).join('')}</div></article>`}
+        shotTerms.innerHTML = shots.map(termHTML).join('');
+        moveTerms.innerHTML = moves.map(termHTML).join('');
+        document.getElementById('principles').innerHTML = principles.map(p=>`<article class="principle"><b>${p[0]}</b><h3>${p[1]}</h3><p>${p[2]}</p></article>`).join('');
+        const postersContainer = document.getElementById('posters');
+        postersContainer.innerHTML = posters.map(posterHTML).join('');
+        const examplesContainer = document.getElementById('examples');
+        examplesContainer.innerHTML = examples.map(e=>`<article class="example"><b>${e[0]}</b><p>“${e[1]}”</p></article>`).join('');
+        const tipsContainer = document.getElementById('tips');
+        tipsContainer.innerHTML = tips.map(t=>`<div class="tip"><strong>${t[0]}</strong><span>${t[1]}</span></div>`).join('');
+        function download(filename, content, type){const blob=new Blob([content],{type});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();URL.revokeObjectURL(a.href);toastMessage();}
+        function downloadHTML(){download('plano-movimiento-lenguaje-narrativo.html','<!DOCTYPE html>\n'+document.documentElement.outerHTML,'text/html;charset=utf-8')}
+        function guideText(){return `PLANO + MOVIMIENTO = LENGUAJE NARRATIVO\n\n${posters.map(p=>`${p.code} · ${p.title}\n${p.subtitle}\n${p.items.map((r,i)=>`${i+1}. ${r[0]} · ${r[2]} Usar en: ${r[3]}`).join('\n')}`).join('\n\n')}\n\nFÓRMULA DE PROMPT\n[Sujeto + descripción] · [Tipo de plano] · [Movimiento de cámara] · [Atmósfera/iluminación] · [Estilo]`;}
+        function downloadTextGuide(){download('guia-plano-movimiento.txt',guideText(),'text/plain;charset=utf-8')}
+        function downloadPosterText(index){const p=posters[index];download(`${p.title.toLowerCase().replaceAll(' ','-')}.txt`,`${p.code} · ${p.title}\n${p.subtitle}\n\n${p.items.map((r,i)=>`${i+1}. ${r[0]}\n${r[1]}\n${r[2]}\nUsar en: ${r[3]}`).join('\n\n')}`,'text/plain;charset=utf-8')}
+        function toastMessage(){const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+    </script>
+</body>
+</html>
