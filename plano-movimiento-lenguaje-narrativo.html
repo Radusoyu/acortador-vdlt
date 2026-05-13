@@ -128,12 +128,13 @@
 
         <section id="imagenes" class="section-card">
             <div class="section-head"><h2>Imágenes descargables</h2><span class="tag" style="color:var(--cyan)">3 pósters SVG</span></div>
-            <p class="generation-note"><strong>Nota honesta:</strong> estas son imágenes vectoriales descargables creadas dentro del proyecto. En este entorno no hay una herramienta nativa de imagen ni una variable <code>OPENAI_API_KEY</code> configurada para generar salidas reales con GPT-image-2 desde la API.</p>
+            <p class="generation-note"><strong>Nota honesta:</strong> intenté generar PNG con GPT-image-2, pero la conexión saliente a la API quedó bloqueada por el túnel de red del entorno con <code>403 Forbidden</code>. No guardo claves en el repositorio; por eso quedan disponibles las imágenes SVG exactas y los prompts listos para generar los PNG fuera de este entorno.</p>
             <div class="image-gallery">
                 <article class="image-card"><img src="assets/infografia-intimidad-emocion.svg" alt="Infografía A: Intimidad y emoción"><div><h3>Intimidad y emoción</h3><p>Recetas para acercar al espectador al mundo interno del personaje.</p><a class="btn" href="assets/infografia-intimidad-emocion.svg" download>⬇ Descargar imagen SVG</a></div></article>
                 <article class="image-card"><img src="assets/infografia-poder-escala.svg" alt="Infografía B: Poder y escala"><div><h3>Poder y escala</h3><p>Recetas para hero shots, villanos y momentos épicos.</p><a class="btn" href="assets/infografia-poder-escala.svg" download>⬇ Descargar imagen SVG</a></div></article>
                 <article class="image-card"><img src="assets/infografia-accion-tension.svg" alt="Infografía C: Acción y tensión"><div><h3>Acción y tensión</h3><p>Recetas para persecuciones, crisis y urgencia visual.</p><a class="btn" href="assets/infografia-accion-tension.svg" download>⬇ Descargar imagen SVG</a></div></article>
             </div>
+            <div class="actions"><a class="btn alt" href="assets/gpt-image-2-infographic-prompts.json" download>⬇ Descargar prompts GPT-image-2</a></div>
         </section>
 
         <section id="infografias" class="section-card">
